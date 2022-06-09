@@ -41,15 +41,14 @@ def append_dic(d):
     d['LLC'] = llc(d['ParkName'])
     d['freewayexit'] = authroute(d['ParkName'],0)+' Exit'
     d['localexit'] = authroute(d['ParkName'],1)
-    print(d['freewayexit'])
-    print(d['localexit'])
     return d
+
 #given a park name, return a hauling route
 def authroute(parkname, index):
-    d = {'Hitching Post':['Yucaipa Blvd','Left into HP after 4th Street'],
+    d = {'Hitching Post':['Yucaipa Blvd','Left into Hitching Post after 4th Street'],
     'Crestview':['Live Oak','Oak Glen Rd -> Ave E --> 4th St'],
     'Westwind':['Live Oak','Oak Glen Rd -> Ave E --> 4th St'],
-    'Holiday':['County Line','Left into Patrician after Calimesa Blvd'],
+    'Holiday':['County Line','Left into Holiday Rancho after Calimesa Blvd'],
     'Wishing Well':['Live Oak','Oak Glen Rd -> Ave E --> 5th St'],
     'Patrician':['County Line','Left into Patrician after 5th St'],
     'Mt Vista':['Live Oak','Oak Glen Rd -> Ave E --> 2nd St']
@@ -139,7 +138,7 @@ def fill():
 def combine():
     merger = PdfFileMerger()
     L = ['page1', 'page2', 'page3', 'page4', \
-         'page5', 'page6', 'page7','page8','drawingoutput']
+         'page5', 'page6', 'page7','page8','drawingoutput','drawingoutput','drawingoutput']
     for i in L:
         file = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\output\\' + i +'.pdf'
         merger.append(PdfFileReader(open(file,'rb')))
