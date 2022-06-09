@@ -1,5 +1,4 @@
-#to do: add all the extra pages (make it more complete) -- got the core done
-#implement inkdrawing -- make it dynamic to the di
+#figure out how to make 3x copies of the site plan
 from PyPDF2 import PdfFileWriter, PdfFileReader, PdfFileMerger
 import io, openpyxl, random
 from openpyxl import load_workbook
@@ -40,8 +39,25 @@ def append_dic(d):
     d['lotarea'] = avgleftright*avgupdown
     d['occ_area'] = round(d['Building_SF']/d['lotarea'],2)
     d['LLC'] = llc(d['ParkName'])
-    print(d)
+    d['freewayexit'] = authroute(d['ParkName'],0)+' Exit'
+    d['localexit'] = authroute(d['ParkName'],1)
+    print(d['freewayexit'])
+    print(d['localexit'])
     return d
+#given a park name, return a hauling route
+def authroute(parkname, index):
+    d = {'Hitching Post':['Yucaipa Blvd','Left into HP after 4th Street'],
+    'Crestview':['Live Oak','Oak Glen Rd -> Ave E --> 4th St'],
+    'Westwind':['Live Oak','Oak Glen Rd -> Ave E --> 4th St'],
+    'Holiday':['County Line','Left into Patrician after Calimesa Blvd'],
+    'Wishing Well':['Live Oak','Oak Glen Rd -> Ave E --> 5th St'],
+    'Patrician':['County Line','Left into Patrician after 5th St'],
+    'Mt Vista':['Live Oak','Oak Glen Rd -> Ave E --> 2nd St']
+         }
+    for i in d:
+        if i in parkname:
+            return d[i][index]
+    return 'N/A'
 
 #given a park name, return the corresponding LLC
 def llc(parkname):
@@ -97,8 +113,6 @@ def ink_drawing():
 
 def alterpdf(emptypath,filledpath):
     d = openpyxl()
-    # emptypath = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\input\\page7.pdf'
-    # filledpath = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\output\\page1filled.pdf'
     reader = PdfFileReader(emptypath)
     writer = PdfFileWriter()
     page = reader.pages[0]
@@ -115,7 +129,7 @@ def alterpdf(emptypath,filledpath):
 #fill up them PDFs baby
 def fill():
     L = ['page1', 'page2', 'page3', 'page4', \
-         'page5','page6','page7']
+         'page5','page6','page7','page8']
     for i in L:
         emptypath = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\input\\'+ i +'.pdf'
         filledpath = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\output\\' + i +'.pdf'
@@ -125,11 +139,11 @@ def fill():
 def combine():
     merger = PdfFileMerger()
     L = ['page1', 'page2', 'page3', 'page4', \
-         'page5', 'page6', 'page7','drawingoutput']
+         'page5', 'page6', 'page7','page8','drawingoutput']
     for i in L:
         file = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\output\\' + i +'.pdf'
         merger.append(PdfFileReader(open(file,'rb')))
-    merger.write(r'C:\Users\Lenovo\PycharmProjects\YucaipaCityPermit\combined.pdf')
+    merger.write(r'C:\Users\Lenovo\PycharmProjects\YucaipaCityPermit\printme\combined.pdf')
     return None
 
 fill()
