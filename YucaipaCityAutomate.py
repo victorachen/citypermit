@@ -1,4 +1,4 @@
-#figure out how to make 3x copies of the site plan
+
 from PyPDF2 import PdfFileWriter, PdfFileReader, PdfFileMerger
 import io, openpyxl, random
 from openpyxl import load_workbook
@@ -21,6 +21,7 @@ def openpyxl():
 
     #append a bunch of (hard coded) stuff to the back of the dictionary
     d = append_dic(d)
+    print(d)
     return d
 
 #append (hard coding) stuff to the excel-made-dictionary (above)
@@ -128,7 +129,7 @@ def alterpdf(emptypath,filledpath):
 #fill up them PDFs baby
 def fill():
     L = ['page1', 'page2', 'page3', 'page4', \
-         'page5','page6','page7','page8']
+         'page5','page6','page7','page8','page9']
     for i in L:
         emptypath = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\input\\'+ i +'.pdf'
         filledpath = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\output\\' + i +'.pdf'
@@ -138,7 +139,7 @@ def fill():
 def combine():
     merger = PdfFileMerger()
     L = ['page1', 'page2', 'page3', 'page4', \
-         'page5', 'page6', 'page7','page8','drawingoutput','drawingoutput','drawingoutput']
+         'page5', 'page6', 'page7','page8','page9','drawingoutput','drawingoutput','drawingoutput']
     for i in L:
         file = 'C:\\Users\\Lenovo\\PycharmProjects\\YucaipaCityPermit\\output\\' + i +'.pdf'
         merger.append(PdfFileReader(open(file,'rb')))
