@@ -42,7 +42,15 @@ def append_dic(d):
     d['LLC'] = llc(d['ParkName'])
     d['freewayexit'] = authroute(d['ParkName'],0)+' Exit'
     d['localexit'] = authroute(d['ParkName'],1)
+    d['conversion'] = whattypeofcoachisit(d['Width'])
     return d
+
+def whattypeofcoachisit(width):
+    if width > 14:
+        return "double-wide, converting to double-wide"
+    else:
+        return "double-wide, converting to double-wide"
+    
 
 #given a park name, return a hauling route
 def authroute(parkname, index):
